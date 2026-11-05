@@ -452,3 +452,4 @@ WHERE hb.hotel_id <> rt.hotel_id;
    - `room_number` in `hotel_bookings`: 6,815 rows (11.4%) are `NULL`, representing hotel reservations prior to front-desk check-in room key allocation.
    - `user_rating` in `hotels`: 134 hotels (4.5%) have `NULL` ratings, indicating new properties without completed guest reviews.
    - `review_text` in `hotel_reviews`: 4,812 rows (30.2%) are empty, where travellers submitted numeric ratings and titles without long-form written text.
+

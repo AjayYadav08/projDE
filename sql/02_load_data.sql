@@ -27,3 +27,4 @@ SET search_path TO mmt;
 
 -- Refresh optimizer statistics
 ANALYZE;
+

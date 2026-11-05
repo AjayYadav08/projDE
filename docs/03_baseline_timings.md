@@ -109,3 +109,4 @@
   *Reason*: Full scan of `flights` to filter `status IN ('SCHEDULED', 'DELAYED') AND departure_at < '2026-07-01'`.
 - **W05**: `Seq Scan on hotel_bookings`, `Index Scan on bookings_pkey`.
   *Reason*: Scans all 59,893 `hotel_bookings` rows looking for `check_in = '2026-07-01' AND room_number IS NULL`.
+

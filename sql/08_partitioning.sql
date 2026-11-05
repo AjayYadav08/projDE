@@ -85,3 +85,4 @@ SELECT count(*), sum(total_amount)
 FROM bookings
 WHERE booked_at >= '2026-06-01 00:00:00+05:30'
   AND booked_at <  '2026-07-01 00:00:00+05:30';
+

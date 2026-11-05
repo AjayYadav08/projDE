@@ -42,3 +42,4 @@ MakeMyTrip operates high-volume dual-vertical travel reservations covering sched
 2. **Denormalization vs Derived Storage**: `flight_bookings.fare_paid` equals `bookings.total_amount + bookings.discount`, recording pre-discount list fare. `passengers.booking_id` maintains individual passenger details, matching the count in `flight_bookings.passengers`.
 3. **Temporal Validity**: Stays and flights follow chronological sequence (`arrival_at > departure_at`, `check_out > check_in`, `cancelled_at >= booked_at`).
 4. **Seat and Room Assignment Lifecycle**: Seats and room numbers are initially `NULL` upon booking creation and are assigned dynamically upon web check-in or arrival.
+

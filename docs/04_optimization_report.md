@@ -210,3 +210,4 @@ Index-to-Table Storage Ratio: 1.38 : 1
    - *Why*: Computes lead times across all historical bookings joined with customer tiers and travel dates. Reading all 144,792 rows requires full heap access; hash joins remain the most efficient relational algorithm for whole-dataset cohort analysis.
 4. **`R25` (Last-Minute Bookings: ~53 ms)**:
    - *Why*: Computes a row-by-row dynamic expression (`f.departure_at - b.booked_at < interval '24 hours'`) that ties two distinct tables together. A static index cannot precompute cross-table differences between arbitrary flight departures and booking times without denormalizing `departure_at` onto `bookings`.
+

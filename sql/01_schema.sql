@@ -201,3 +201,4 @@ CREATE TABLE hotel_reviews (
     created_at TIMESTAMPTZ NOT NULL,
     CONSTRAINT chk_hotel_reviews_rating CHECK (rating BETWEEN 1 AND 5)
 );
+

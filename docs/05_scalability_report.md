@@ -192,3 +192,4 @@ To protect the primary database master from analytical load:
   1. *Risk*: Deep offset pagination in `R22`. *Mitigation*: Enforce keyset pagination with backward-compatible cursor tokens in customer support tools.
   2. *Risk*: Peak holiday surge in flight searches (`R01`). *Mitigation*: Front flight searches with Redis caching of recent search parameters.
   3. *Risk*: Replication lag on read replicas during flash sales. *Mitigation*: Ensure checkout confirmations (`W02`) and itinerary reads immediately following checkout route to the primary master.
+
