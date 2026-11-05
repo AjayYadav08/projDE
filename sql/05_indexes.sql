@@ -192,5 +192,21 @@ CREATE INDEX IF NOT EXISTS idx_flights_w04
     ON flights (departure_at)
     WHERE status IN ('SCHEDULED', 'DELAYED');
 
+-- ---------------------------------------------------------------------
+-- 21. Passenger Manifest Covering Index (Serves R07)
+-- Enables Index Only Scan on passengers without visiting heap blocks.
+-- ---------------------------------------------------------------------
+CREATE INDEX IF NOT EXISTS idx_passengers_manifest
+    ON passengers (booking_id)
+    INCLUDE (full_name, age, gender, seat_no);
+
+-- ---------------------------------------------------------------------
+-- 22. Booking Reference & Status Covering Index (Serves R01, R07)
+-- Enables Index Only Scan on bookings for status validation and ref lookup.
+-- ---------------------------------------------------------------------
+CREATE INDEX IF NOT EXISTS idx_bookings_id_ref_status
+    ON bookings (booking_id)
+    INCLUDE (booking_ref, status);
+
 -- Refresh optimizer statistics
 ANALYZE;

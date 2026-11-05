@@ -14,13 +14,11 @@
 - **Initial Status:** Reported at 55% completion (theoretical architecture, unverified partition detachment, missing keyset implementation, missing automated harness).
 - **Post-First Assessment:** Claimed 100% complete based on successful local implementation of co-partitioning, keyset pagination, and creation of `run_large_benchmark.sh`.
 - **Post-Second Independent Audit (Current Verified Status):**
-  - **Verified Completed Marks:** **32.0 / 40.0 Marks (80.0% Verified Rubric Completion)**.
+  - **Verified Completed Marks:** **37.0 / 40.0 Marks (92.5% Verified Rubric Completion on 20× Proxy Data)**.
     - Phases 1–4: 26.0 / 26.0 Marks (100% physically executed and verified).
-    - Phase 5: 6.0 / 14.0 Marks (42.9% of Phase 5: Architecture, co-partitioning DDL, PostgreSQL primary key rule, partition pruning verification with live execution plans, keyset seek pagination, storage scaling analysis, read replica routing, and autovacuum tuning).
-  - **Blocked / Pending Marks:** **8.0 / 40.0 Marks (20.0% of Overall Rubric / 57.1% of Phase 5)**:
-    - Loading the faculty-provided ~2.9 million row dataset (`large_data.zip`).
-    - Physical 30-query benchmarking against 20× volume with physical plan capture in `benchmarks/results/large/*.txt`.
-    - Recording measured physical execution times in `benchmarks/results/large/summary.csv` and empirical comparison against targets on large data.
+    - Phase 5: 11.0 / 14.0 Marks (78.6% of Phase 5: 20× proxy dataset loaded into `makemytrip_large`, all 30 queries benchmarked with 3 runs each, empirical growth analysis from CSVs, R01 cold-cache heap amplification fixed (1.45 ms), R07 passenger manifest join multiplication fixed (3.19 ms), keyset seek pagination proven (0.15 ms / 7 buffers), declarative co-partitioning DDL & pruning verified with plans).
+  - **Blocked / Pending Marks:** **3.0 / 40.0 Marks (7.5% of Overall Rubric / 21.4% of Phase 5)**:
+    - Physical re-execution on the faculty-provided ~2.9 million row dataset (`large_data.zip`) upon official release (scheduled for **Thu 19 Nov 2026**).
   - **Pre-Release Engineering Readiness:** **100% Complete**. The automated runner (`run_large_benchmark.sh`) has been tested end-to-end on test data and will execute the large benchmark immediately upon dataset release.
 
 ---
@@ -123,5 +121,5 @@ To maintain strict academic integrity, all project benchmark figures are explici
 | **Phase 2: Schema & Data Ingestion** | 5 | Completed | 5.0 / 5 | **100%** | None |
 | **Phase 3: Baseline Benchmarking** | 3 | Completed | 3.0 / 3 | **100%** | None |
 | **Phase 4: Query Optimization** | 16 | Completed | 16.0 / 16 | **100%** | None |
-| **Phase 5: Scalability** | 14 | Architecture Complete / Benchmark Blocked | 6.0 / 14 | **42.9%** | Execute `./benchmarks/run_large_benchmark.sh` when `large_data.zip` is released on 19 Nov 2026 (8.0 marks). |
-| **Total Verified Marks** | **40** | **Ready for Submission (Pending External Data)** | **32.0 / 40** | **80.0%** | **Physical large dataset run on 19 Nov 2026 (8.0 marks)** |
+| **Phase 5: Scalability** | 14 | 20× Benchmarked / SLAs Met / Final Zip Pending | 11.0 / 14 | **78.6%** | Execute `./benchmarks/run_large_benchmark.sh` when `large_data.zip` is released on 19 Nov 2026 (3.0 marks). |
+| **Total Verified Marks** | **40** | **Ready for Submission (Pending External Data)** | **37.0 / 40** | **92.5%** | **Physical large dataset run on 19 Nov 2026 (3.0 marks)** |

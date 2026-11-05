@@ -1,33 +1,33 @@
 === W03 run 1 ===
-Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=1.219..1.225 rows=0 loops=1)
-  Buffers: shared hit=53 read=6 dirtied=5
-  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.135..0.137 rows=1 loops=1)
+Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=1.413..1.417 rows=0 loops=1)
+  Buffers: shared hit=57 read=6 dirtied=5
+  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.148..0.150 rows=1 loops=1)
         Index Cond: ((booking_ref)::text = 'MMA7772F'::text)
         Filter: ((status)::text <> 'CANCELLED'::text)
         Buffers: shared hit=2 read=2
 Planning:
-  Buffers: shared hit=224
-Planning Time: 1.274 ms
-Execution Time: 1.403 ms
+  Buffers: shared hit=243
+Planning Time: 1.844 ms
+Execution Time: 1.582 ms
 === W03 run 2 ===
-Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=0.605..0.609 rows=0 loops=1)
-  Buffers: shared hit=62
-  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.123..0.131 rows=1 loops=1)
+Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=1.026..1.028 rows=0 loops=1)
+  Buffers: shared hit=65
+  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.056..0.061 rows=1 loops=1)
         Index Cond: ((booking_ref)::text = 'MMA7772F'::text)
         Filter: ((status)::text <> 'CANCELLED'::text)
         Buffers: shared hit=6
 Planning:
-  Buffers: shared hit=224
-Planning Time: 1.323 ms
-Execution Time: 0.802 ms
+  Buffers: shared hit=243
+Planning Time: 1.662 ms
+Execution Time: 1.144 ms
 === W03 run 3 ===
-Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=0.414..0.417 rows=0 loops=1)
-  Buffers: shared hit=62
-  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.072..0.077 rows=1 loops=1)
+Update on bookings  (cost=0.43..8.46 rows=0 width=0) (actual time=0.943..0.948 rows=0 loops=1)
+  Buffers: shared hit=65
+  ->  Index Scan using bookings_booking_ref_key on bookings  (cost=0.43..8.46 rows=1 width=88) (actual time=0.148..0.157 rows=1 loops=1)
         Index Cond: ((booking_ref)::text = 'MMA7772F'::text)
         Filter: ((status)::text <> 'CANCELLED'::text)
         Buffers: shared hit=6
 Planning:
-  Buffers: shared hit=224
-Planning Time: 0.958 ms
-Execution Time: 0.564 ms
+  Buffers: shared hit=243
+Planning Time: 2.136 ms
+Execution Time: 1.187 ms

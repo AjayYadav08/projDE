@@ -1,33 +1,33 @@
 === W04 run 1 ===
-Update on flights  (cost=0.28..46.54 rows=0 width=0) (actual time=13.623..13.631 rows=0 loops=1)
-  Buffers: shared hit=115 read=30 dirtied=24
-  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.54 rows=713 width=64) (actual time=0.062..0.101 rows=10 loops=1)
+Update on flights  (cost=0.28..46.54 rows=0 width=0) (actual time=5.559..5.572 rows=0 loops=1)
+  Buffers: shared hit=116 read=25 dirtied=22
+  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.54 rows=713 width=64) (actual time=0.052..0.076 rows=10 loops=1)
         Index Cond: (departure_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
         Filter: ((status)::text = ANY ('{SCHEDULED,DELAYED}'::text[]))
         Buffers: shared hit=1 read=2
 Planning:
-  Buffers: shared hit=238
-Planning Time: 1.310 ms
-Execution Time: 13.848 ms
+  Buffers: shared hit=237 read=1
+Planning Time: 2.285 ms
+Execution Time: 5.775 ms
 === W04 run 2 ===
-Update on flights  (cost=0.28..46.54 rows=0 width=0) (actual time=0.714..0.718 rows=0 loops=1)
-  Buffers: shared hit=162 dirtied=4 written=1
-  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.54 rows=713 width=64) (actual time=0.027..0.035 rows=10 loops=1)
+Update on flights  (cost=0.28..46.54 rows=0 width=0) (actual time=1.120..1.125 rows=0 loops=1)
+  Buffers: shared hit=144
+  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.54 rows=713 width=64) (actual time=0.037..0.047 rows=10 loops=1)
         Index Cond: (departure_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
         Filter: ((status)::text = ANY ('{SCHEDULED,DELAYED}'::text[]))
         Buffers: shared hit=3
 Planning:
   Buffers: shared hit=238
-Planning Time: 2.836 ms
-Execution Time: 0.880 ms
+Planning Time: 1.355 ms
+Execution Time: 1.294 ms
 === W04 run 3 ===
-Update on flights  (cost=0.28..46.64 rows=0 width=0) (actual time=0.894..0.900 rows=0 loops=1)
+Update on flights  (cost=0.28..46.54 rows=0 width=0) (actual time=1.092..1.097 rows=0 loops=1)
   Buffers: shared hit=151
-  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.64 rows=718 width=64) (actual time=0.026..0.038 rows=10 loops=1)
+  ->  Index Scan using idx_flights_w04 on flights  (cost=0.28..46.54 rows=713 width=64) (actual time=0.047..0.067 rows=10 loops=1)
         Index Cond: (departure_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone)
         Filter: ((status)::text = ANY ('{SCHEDULED,DELAYED}'::text[]))
         Buffers: shared hit=3
 Planning:
   Buffers: shared hit=238
-Planning Time: 1.137 ms
-Execution Time: 1.062 ms
+Planning Time: 1.821 ms
+Execution Time: 1.305 ms

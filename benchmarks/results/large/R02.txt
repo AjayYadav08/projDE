@@ -1,48 +1,48 @@
 === R02 run 1 ===
-GroupAggregate  (cost=5.61..6.13 rows=26 width=36) (actual time=0.638..0.665 rows=31 loops=1)
+GroupAggregate  (cost=9.61..10.13 rows=26 width=36) (actual time=0.795..0.816 rows=31 loops=1)
   Group Key: ((departure_at)::date)
-  Buffers: shared hit=4 read=2
-  ->  Sort  (cost=5.61..5.68 rows=26 width=9) (actual time=0.624..0.628 rows=31 loops=1)
+  Buffers: shared hit=5 read=3
+  ->  Sort  (cost=9.61..9.68 rows=26 width=9) (actual time=0.782..0.785 rows=31 loops=1)
         Sort Key: ((departure_at)::date)
         Sort Method: quicksort  Memory: 26kB
-        Buffers: shared hit=4 read=2
-        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..5.00 rows=26 width=9) (actual time=0.583..0.597 rows=31 loops=1)
+        Buffers: shared hit=5 read=3
+        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..9.00 rows=26 width=9) (actual time=0.732..0.747 rows=31 loops=1)
               Index Cond: ((origin = 'BLR'::bpchar) AND (destination = 'DEL'::bpchar) AND (departure_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (departure_at < '2026-08-01 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 0
-              Buffers: shared hit=1 read=2
+              Heap Fetches: 4
+              Buffers: shared hit=2 read=3
 Planning:
-  Buffers: shared hit=228
-Planning Time: 0.638 ms
-Execution Time: 0.701 ms
+  Buffers: shared hit=227 read=1
+Planning Time: 1.190 ms
+Execution Time: 0.876 ms
 === R02 run 2 ===
-GroupAggregate  (cost=5.61..6.13 rows=26 width=36) (actual time=0.099..0.112 rows=31 loops=1)
+GroupAggregate  (cost=9.61..10.13 rows=26 width=36) (actual time=0.321..0.349 rows=31 loops=1)
   Group Key: ((departure_at)::date)
-  Buffers: shared hit=6
-  ->  Sort  (cost=5.61..5.68 rows=26 width=9) (actual time=0.091..0.093 rows=31 loops=1)
+  Buffers: shared hit=8
+  ->  Sort  (cost=9.61..9.68 rows=26 width=9) (actual time=0.302..0.306 rows=31 loops=1)
         Sort Key: ((departure_at)::date)
         Sort Method: quicksort  Memory: 26kB
-        Buffers: shared hit=6
-        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..5.00 rows=26 width=9) (actual time=0.063..0.069 rows=31 loops=1)
+        Buffers: shared hit=8
+        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..9.00 rows=26 width=9) (actual time=0.223..0.244 rows=31 loops=1)
               Index Cond: ((origin = 'BLR'::bpchar) AND (destination = 'DEL'::bpchar) AND (departure_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (departure_at < '2026-08-01 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 0
-              Buffers: shared hit=3
+              Heap Fetches: 4
+              Buffers: shared hit=5
 Planning:
   Buffers: shared hit=228
-Planning Time: 0.723 ms
-Execution Time: 0.145 ms
+Planning Time: 1.757 ms
+Execution Time: 0.480 ms
 === R02 run 3 ===
-GroupAggregate  (cost=5.61..6.13 rows=26 width=36) (actual time=0.204..0.231 rows=31 loops=1)
+GroupAggregate  (cost=9.61..10.13 rows=26 width=36) (actual time=0.213..0.230 rows=31 loops=1)
   Group Key: ((departure_at)::date)
-  Buffers: shared hit=6
-  ->  Sort  (cost=5.61..5.68 rows=26 width=9) (actual time=0.190..0.194 rows=31 loops=1)
+  Buffers: shared hit=8
+  ->  Sort  (cost=9.61..9.68 rows=26 width=9) (actual time=0.200..0.202 rows=31 loops=1)
         Sort Key: ((departure_at)::date)
         Sort Method: quicksort  Memory: 26kB
-        Buffers: shared hit=6
-        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..5.00 rows=26 width=9) (actual time=0.133..0.147 rows=31 loops=1)
+        Buffers: shared hit=8
+        ->  Index Only Scan using idx_flights_route_date_fare on flights  (cost=0.29..9.00 rows=26 width=9) (actual time=0.140..0.154 rows=31 loops=1)
               Index Cond: ((origin = 'BLR'::bpchar) AND (destination = 'DEL'::bpchar) AND (departure_at >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (departure_at < '2026-08-01 00:00:00+05:30'::timestamp with time zone))
-              Heap Fetches: 0
-              Buffers: shared hit=3
+              Heap Fetches: 4
+              Buffers: shared hit=5
 Planning:
   Buffers: shared hit=228
-Planning Time: 1.132 ms
-Execution Time: 0.305 ms
+Planning Time: 1.507 ms
+Execution Time: 0.308 ms

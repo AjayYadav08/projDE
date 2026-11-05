@@ -1,51 +1,51 @@
 === R17 run 1 ===
-Sort  (cost=87551.36..87965.10 rows=165498 width=44) (actual time=666.913..672.584 rows=61440 loops=1)
+Sort  (cost=57239.86..57647.95 rows=163234 width=44) (actual time=322.686..328.266 rows=61440 loops=1)
   Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
   Sort Method: external merge  Disk: 2024kB
-  Buffers: shared hit=323061 read=7268 written=1833, temp read=253 written=254
-  ->  GroupAggregate  (cost=0.42..68113.12 rows=165498 width=44) (actual time=0.415..600.618 rows=61440 loops=1)
+  Buffers: shared hit=14 read=3020, temp read=253 written=254
+  ->  GroupAggregate  (cost=0.42..38084.09 rows=163234 width=44) (actual time=0.680..269.095 rows=61440 loops=1)
         Group Key: customer_id
         Filter: (count(*) >= 3)
         Rows Removed by Filter: 438520
-        Buffers: shared hit=323055 read=7268 written=1833
-        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..54333.97 rows=844234 width=10) (actual time=0.400..383.155 rows=787440 loops=1)
-              Heap Fetches: 327855
-              Buffers: shared hit=323055 read=7268 written=1833
+        Buffers: shared hit=8 read=3020
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..24425.71 rows=841713 width=10) (actual time=0.663..69.725 rows=787440 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=8 read=3020
 Planning:
-  Buffers: shared hit=294
-Planning Time: 0.840 ms
-Execution Time: 675.921 ms
+  Buffers: shared hit=313
+Planning Time: 0.891 ms
+Execution Time: 331.400 ms
 === R17 run 2 ===
-Sort  (cost=87551.36..87965.10 rows=165498 width=44) (actual time=441.032..446.283 rows=61440 loops=1)
+Sort  (cost=57239.86..57647.95 rows=163234 width=44) (actual time=304.207..309.400 rows=61440 loops=1)
   Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
   Sort Method: external merge  Disk: 2024kB
-  Buffers: shared hit=330329, temp read=253 written=254
-  ->  GroupAggregate  (cost=0.42..68113.12 rows=165498 width=44) (actual time=0.086..389.044 rows=61440 loops=1)
+  Buffers: shared hit=3034, temp read=253 written=254
+  ->  GroupAggregate  (cost=0.42..38084.09 rows=163234 width=44) (actual time=0.058..252.919 rows=61440 loops=1)
         Group Key: customer_id
         Filter: (count(*) >= 3)
         Rows Removed by Filter: 438520
-        Buffers: shared hit=330323
-        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..54333.97 rows=844234 width=10) (actual time=0.070..157.723 rows=787440 loops=1)
-              Heap Fetches: 327855
-              Buffers: shared hit=330323
+        Buffers: shared hit=3028
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..24425.71 rows=841713 width=10) (actual time=0.043..54.834 rows=787440 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=3028
 Planning:
-  Buffers: shared hit=294
-Planning Time: 1.186 ms
-Execution Time: 448.977 ms
+  Buffers: shared hit=313
+Planning Time: 0.764 ms
+Execution Time: 312.084 ms
 === R17 run 3 ===
-Sort  (cost=87551.36..87965.10 rows=165498 width=44) (actual time=515.711..521.575 rows=61440 loops=1)
+Sort  (cost=57239.86..57647.95 rows=163234 width=44) (actual time=316.006..321.418 rows=61440 loops=1)
   Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
   Sort Method: external merge  Disk: 2024kB
-  Buffers: shared hit=330329, temp read=253 written=254
-  ->  GroupAggregate  (cost=0.42..68113.12 rows=165498 width=44) (actual time=0.062..452.472 rows=61440 loops=1)
+  Buffers: shared hit=3034, temp read=253 written=254
+  ->  GroupAggregate  (cost=0.42..38084.09 rows=163234 width=44) (actual time=0.056..267.295 rows=61440 loops=1)
         Group Key: customer_id
         Filter: (count(*) >= 3)
         Rows Removed by Filter: 438520
-        Buffers: shared hit=330323
-        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..54333.97 rows=844234 width=10) (actual time=0.046..235.868 rows=787440 loops=1)
-              Heap Fetches: 327855
-              Buffers: shared hit=330323
+        Buffers: shared hit=3028
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.42..24425.71 rows=841713 width=10) (actual time=0.043..56.523 rows=787440 loops=1)
+              Heap Fetches: 0
+              Buffers: shared hit=3028
 Planning:
-  Buffers: shared hit=294
-Planning Time: 0.794 ms
-Execution Time: 525.106 ms
+  Buffers: shared hit=313
+Planning Time: 0.804 ms
+Execution Time: 324.433 ms
