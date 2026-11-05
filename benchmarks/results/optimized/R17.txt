@@ -1,0 +1,51 @@
+=== R17 run 1 ===
+Sort  (cost=2647.10..2668.92 rows=8731 width=44) (actual time=18.940..19.059 rows=3072 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=170
+  ->  GroupAggregate  (cost=0.29..2075.57 rows=8731 width=44) (actual time=0.081..16.651 rows=3072 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 21926
+        Buffers: shared hit=164
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.29..1366.89 rows=42104 width=10) (actual time=0.057..4.114 rows=39372 loops=1)
+              Heap Fetches: 78
+              Buffers: shared hit=164
+Planning:
+  Buffers: shared hit=290
+Planning Time: 1.152 ms
+Execution Time: 19.266 ms
+=== R17 run 2 ===
+Sort  (cost=2647.10..2668.92 rows=8731 width=44) (actual time=16.612..16.722 rows=3072 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=170
+  ->  GroupAggregate  (cost=0.29..2075.57 rows=8731 width=44) (actual time=0.056..14.275 rows=3072 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 21926
+        Buffers: shared hit=164
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.29..1366.89 rows=42104 width=10) (actual time=0.041..3.086 rows=39372 loops=1)
+              Heap Fetches: 78
+              Buffers: shared hit=164
+Planning:
+  Buffers: shared hit=290
+Planning Time: 0.698 ms
+Execution Time: 16.856 ms
+=== R17 run 3 ===
+Sort  (cost=2647.10..2668.92 rows=8731 width=44) (actual time=16.541..16.661 rows=3072 loops=1)
+  Sort Key: (count(*)) DESC, (sum(total_amount)) DESC
+  Sort Method: quicksort  Memory: 247kB
+  Buffers: shared hit=170
+  ->  GroupAggregate  (cost=0.29..2075.57 rows=8731 width=44) (actual time=0.063..14.064 rows=3072 loops=1)
+        Group Key: customer_id
+        Filter: (count(*) >= 3)
+        Rows Removed by Filter: 21926
+        Buffers: shared hit=164
+        ->  Index Only Scan using idx_bookings_completed_2026 on bookings b  (cost=0.29..1366.89 rows=42104 width=10) (actual time=0.044..3.159 rows=39372 loops=1)
+              Heap Fetches: 78
+              Buffers: shared hit=164
+Planning:
+  Buffers: shared hit=290
+Planning Time: 0.865 ms
+Execution Time: 16.799 ms

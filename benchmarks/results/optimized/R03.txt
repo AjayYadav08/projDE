@@ -1,0 +1,54 @@
+=== R03 run 1 ===
+Limit  (cost=67.45..67.50 rows=20 width=34) (actual time=0.307..0.311 rows=20 loops=1)
+  Buffers: shared hit=65
+  ->  Sort  (cost=67.45..67.52 rows=30 width=34) (actual time=0.302..0.303 rows=20 loops=1)
+        Sort Key: user_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=65
+        ->  Bitmap Heap Scan on hotels  (cost=10.00..66.71 rows=30 width=34) (actual time=0.068..0.234 rows=98 loops=1)
+              Recheck Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+              Heap Blocks: exact=59
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_hotels_search  (cost=0.00..9.99 rows=30 width=0) (actual time=0.053..0.053 rows=98 loops=1)
+                    Index Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+                    Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=156
+Planning Time: 1.118 ms
+Execution Time: 0.358 ms
+=== R03 run 2 ===
+Limit  (cost=67.45..67.50 rows=20 width=34) (actual time=0.231..0.235 rows=20 loops=1)
+  Buffers: shared hit=65
+  ->  Sort  (cost=67.45..67.52 rows=30 width=34) (actual time=0.230..0.231 rows=20 loops=1)
+        Sort Key: user_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=65
+        ->  Bitmap Heap Scan on hotels  (cost=10.00..66.71 rows=30 width=34) (actual time=0.046..0.166 rows=98 loops=1)
+              Recheck Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+              Heap Blocks: exact=59
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_hotels_search  (cost=0.00..9.99 rows=30 width=0) (actual time=0.034..0.034 rows=98 loops=1)
+                    Index Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+                    Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=156
+Planning Time: 2.400 ms
+Execution Time: 0.280 ms
+=== R03 run 3 ===
+Limit  (cost=67.45..67.50 rows=20 width=34) (actual time=0.234..0.238 rows=20 loops=1)
+  Buffers: shared hit=65
+  ->  Sort  (cost=67.45..67.52 rows=30 width=34) (actual time=0.233..0.234 rows=20 loops=1)
+        Sort Key: user_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=65
+        ->  Bitmap Heap Scan on hotels  (cost=10.00..66.71 rows=30 width=34) (actual time=0.043..0.177 rows=98 loops=1)
+              Recheck Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+              Heap Blocks: exact=59
+              Buffers: shared hit=62
+              ->  Bitmap Index Scan on idx_hotels_search  (cost=0.00..9.99 rows=30 width=0) (actual time=0.034..0.034 rows=98 loops=1)
+                    Index Cond: (((city_name)::text = 'Goa'::text) AND (star_rating >= 4) AND ((amenities ->> 'pool'::text) = 'true'::text))
+                    Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=156
+Planning Time: 1.294 ms
+Execution Time: 0.280 ms

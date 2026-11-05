@@ -1,0 +1,87 @@
+=== R24 run 1 ===
+Limit  (cost=524.10..524.15 rows=20 width=64) (actual time=3.505..3.510 rows=20 loops=1)
+  Buffers: shared hit=257
+  ->  Sort  (cost=524.10..524.48 rows=150 width=64) (actual time=3.503..3.505 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=257
+        ->  HashAggregate  (cost=512.98..520.11 rows=150 width=64) (actual time=3.283..3.399 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Batches: 1  Memory Usage: 157kB
+              Rows Removed by Filter: 200
+              Buffers: shared hit=251
+              ->  Hash Join  (cost=116.12..495.08 rows=2387 width=28) (actual time=0.555..2.824 rows=2385 loops=1)
+                    Hash Cond: (r.hotel_id = h.hotel_id)
+                    Buffers: shared hit=251
+                    ->  Seq Scan on hotel_reviews r  (cost=0.00..337.13 rows=15913 width=8) (actual time=0.026..0.930 rows=15913 loops=1)
+                          Buffers: shared hit=178
+                    ->  Hash  (cost=110.50..110.50 rows=450 width=24) (actual time=0.516..0.517 rows=450 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=73
+                          ->  Seq Scan on hotels h  (cost=0.00..110.50 rows=450 width=24) (actual time=0.011..0.417 rows=450 loops=1)
+                                Filter: ((city_name)::text = 'Goa'::text)
+                                Rows Removed by Filter: 2550
+                                Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=168
+Planning Time: 1.492 ms
+Execution Time: 3.838 ms
+=== R24 run 2 ===
+Limit  (cost=524.10..524.15 rows=20 width=64) (actual time=4.479..4.485 rows=20 loops=1)
+  Buffers: shared hit=257
+  ->  Sort  (cost=524.10..524.48 rows=150 width=64) (actual time=4.478..4.480 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=257
+        ->  HashAggregate  (cost=512.98..520.11 rows=150 width=64) (actual time=4.287..4.405 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Batches: 1  Memory Usage: 157kB
+              Rows Removed by Filter: 200
+              Buffers: shared hit=251
+              ->  Hash Join  (cost=116.12..495.08 rows=2387 width=28) (actual time=0.343..3.487 rows=2385 loops=1)
+                    Hash Cond: (r.hotel_id = h.hotel_id)
+                    Buffers: shared hit=251
+                    ->  Seq Scan on hotel_reviews r  (cost=0.00..337.13 rows=15913 width=8) (actual time=0.007..1.311 rows=15913 loops=1)
+                          Buffers: shared hit=178
+                    ->  Hash  (cost=110.50..110.50 rows=450 width=24) (actual time=0.329..0.330 rows=450 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=73
+                          ->  Seq Scan on hotels h  (cost=0.00..110.50 rows=450 width=24) (actual time=0.005..0.284 rows=450 loops=1)
+                                Filter: ((city_name)::text = 'Goa'::text)
+                                Rows Removed by Filter: 2550
+                                Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=168
+Planning Time: 0.561 ms
+Execution Time: 4.533 ms
+=== R24 run 3 ===
+Limit  (cost=524.10..524.15 rows=20 width=64) (actual time=5.115..5.121 rows=20 loops=1)
+  Buffers: shared hit=257
+  ->  Sort  (cost=524.10..524.48 rows=150 width=64) (actual time=5.114..5.116 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=257
+        ->  HashAggregate  (cost=512.98..520.11 rows=150 width=64) (actual time=4.919..5.040 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Batches: 1  Memory Usage: 157kB
+              Rows Removed by Filter: 200
+              Buffers: shared hit=251
+              ->  Hash Join  (cost=116.12..495.08 rows=2387 width=28) (actual time=0.373..4.427 rows=2385 loops=1)
+                    Hash Cond: (r.hotel_id = h.hotel_id)
+                    Buffers: shared hit=251
+                    ->  Seq Scan on hotel_reviews r  (cost=0.00..337.13 rows=15913 width=8) (actual time=0.008..2.607 rows=15913 loops=1)
+                          Buffers: shared hit=178
+                    ->  Hash  (cost=110.50..110.50 rows=450 width=24) (actual time=0.357..0.358 rows=450 loops=1)
+                          Buckets: 1024  Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=73
+                          ->  Seq Scan on hotels h  (cost=0.00..110.50 rows=450 width=24) (actual time=0.006..0.312 rows=450 loops=1)
+                                Filter: ((city_name)::text = 'Goa'::text)
+                                Rows Removed by Filter: 2550
+                                Buffers: shared hit=73
+Planning:
+  Buffers: shared hit=168
+Planning Time: 0.628 ms
+Execution Time: 5.177 ms

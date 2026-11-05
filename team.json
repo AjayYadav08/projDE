@@ -1,0 +1,27 @@
+{
+  "team_number": "Team-MMT-01",
+  "group_lead": {
+    "name": "Ajay Yadav",
+    "enrollment_no": "2024BTCS001",
+    "github": "AjayYadav08"
+  },
+  "members": [
+    {
+      "name": "Aarav Sharma",
+      "enrollment_no": "2024BTCS002",
+      "github": "aarav-sharma"
+    },
+    {
+      "name": "Diya Patel",
+      "enrollment_no": "2024BTCS003",
+      "github": "diya-patel"
+    },
+    {
+      "name": "Rohan Gupta",
+      "enrollment_no": "2024BTCS004",
+      "github": "rohan-gupta"
+    }
+  ],
+  "postgres_version": "PostgreSQL 16.15",
+  "laptop_used_for_benchmarks": "Apple M-Series Mac (macOS)"
+}

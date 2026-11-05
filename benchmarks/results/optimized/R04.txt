@@ -1,0 +1,90 @@
+=== R04 run 1 ===
+Sort  (cost=42.17..42.18 rows=3 width=31) (actual time=0.171..0.175 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=31
+  ->  GroupAggregate  (cost=42.08..42.14 rows=3 width=31) (actual time=0.122..0.133 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=28
+        ->  Sort  (cost=42.08..42.08 rows=3 width=37) (actual time=0.111..0.112 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=28
+              ->  Nested Loop Left Join  (cost=0.99..42.05 rows=3 width=37) (actual time=0.035..0.084 rows=4 loops=1)
+                    Buffers: shared hit=25
+                    ->  Nested Loop Left Join  (cost=0.70..29.40 rows=3 width=31) (actual time=0.031..0.049 rows=4 loops=1)
+                          Buffers: shared hit=16
+                          ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.014..0.016 rows=3 loops=1)
+                                Index Cond: (hotel_id = 208)
+                                Buffers: shared hit=4
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.41..5.85 rows=1 width=12) (actual time=0.008..0.009 rows=1 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 2
+                                Buffers: shared hit=12
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.22 rows=1 width=14) (actual time=0.008..0.008 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=482
+Planning Time: 2.875 ms
+Execution Time: 0.252 ms
+=== R04 run 2 ===
+Sort  (cost=42.17..42.18 rows=3 width=31) (actual time=0.137..0.140 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=31
+  ->  GroupAggregate  (cost=42.08..42.14 rows=3 width=31) (actual time=0.095..0.104 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=28
+        ->  Sort  (cost=42.08..42.08 rows=3 width=37) (actual time=0.088..0.089 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=28
+              ->  Nested Loop Left Join  (cost=0.99..42.05 rows=3 width=37) (actual time=0.032..0.072 rows=4 loops=1)
+                    Buffers: shared hit=25
+                    ->  Nested Loop Left Join  (cost=0.70..29.40 rows=3 width=31) (actual time=0.028..0.043 rows=4 loops=1)
+                          Buffers: shared hit=16
+                          ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.011..0.013 rows=3 loops=1)
+                                Index Cond: (hotel_id = 208)
+                                Buffers: shared hit=4
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.41..5.85 rows=1 width=12) (actual time=0.007..0.008 rows=1 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 2
+                                Buffers: shared hit=12
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.22 rows=1 width=14) (actual time=0.006..0.006 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=482
+Planning Time: 4.035 ms
+Execution Time: 0.208 ms
+=== R04 run 3 ===
+Sort  (cost=42.17..42.18 rows=3 width=31) (actual time=0.183..0.185 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=31
+  ->  GroupAggregate  (cost=42.08..42.14 rows=3 width=31) (actual time=0.126..0.134 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=28
+        ->  Sort  (cost=42.08..42.08 rows=3 width=37) (actual time=0.117..0.118 rows=4 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 25kB
+              Buffers: shared hit=28
+              ->  Nested Loop Left Join  (cost=0.99..42.05 rows=3 width=37) (actual time=0.037..0.101 rows=4 loops=1)
+                    Buffers: shared hit=25
+                    ->  Nested Loop Left Join  (cost=0.70..29.40 rows=3 width=31) (actual time=0.034..0.049 rows=4 loops=1)
+                          Buffers: shared hit=16
+                          ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.010..0.011 rows=3 loops=1)
+                                Index Cond: (hotel_id = 208)
+                                Buffers: shared hit=4
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.41..5.85 rows=1 width=12) (actual time=0.007..0.009 rows=1 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 2
+                                Buffers: shared hit=12
+                    ->  Index Scan using bookings_pkey on bookings b  (cost=0.29..4.22 rows=1 width=14) (actual time=0.012..0.012 rows=1 loops=4)
+                          Index Cond: (booking_id = hb.booking_id)
+                          Buffers: shared hit=9
+Planning:
+  Buffers: shared hit=482
+Planning Time: 4.293 ms
+Execution Time: 0.284 ms

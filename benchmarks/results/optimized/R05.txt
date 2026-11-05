@@ -1,0 +1,81 @@
+=== R05 run 1 ===
+Sort  (cost=25.38..25.39 rows=1 width=25) (actual time=0.137..0.140 rows=1 loops=1)
+  Sort Key: (COALESCE((f.departure_at)::date, hb.check_in))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  Nested Loop Left Join  (cost=1.29..25.37 rows=1 width=25) (actual time=0.091..0.093 rows=1 loops=1)
+        Buffers: shared hit=12
+        ->  Nested Loop Left Join  (cost=1.00..17.06 rows=1 width=33) (actual time=0.069..0.070 rows=1 loops=1)
+              Buffers: shared hit=10
+              ->  Nested Loop Left Join  (cost=0.71..16.75 rows=1 width=29) (actual time=0.063..0.064 rows=1 loops=1)
+                    Buffers: shared hit=7
+                    ->  Index Scan using idx_bookings_customer_status on bookings b  (cost=0.42..8.44 rows=1 width=25) (actual time=0.039..0.040 rows=1 loops=1)
+                          Index Cond: ((customer_id = 1021) AND ((status)::text = 'CONFIRMED'::text))
+                          Buffers: shared hit=4
+                    ->  Index Scan using flight_bookings_pkey on flight_bookings fb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.020..0.020 rows=1 loops=1)
+                          Index Cond: (booking_id = b.booking_id)
+                          Buffers: shared hit=3
+              ->  Index Scan using flights_pkey on flights f  (cost=0.29..0.31 rows=1 width=12) (actual time=0.005..0.005 rows=1 loops=1)
+                    Index Cond: (flight_id = fb.flight_id)
+                    Buffers: shared hit=3
+        ->  Index Scan using hotel_bookings_pkey on hotel_bookings hb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.012..0.012 rows=0 loops=1)
+              Index Cond: (booking_id = b.booking_id)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=673
+Planning Time: 5.314 ms
+Execution Time: 0.221 ms
+=== R05 run 2 ===
+Sort  (cost=25.38..25.39 rows=1 width=25) (actual time=0.099..0.103 rows=1 loops=1)
+  Sort Key: (COALESCE((f.departure_at)::date, hb.check_in))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  Nested Loop Left Join  (cost=1.29..25.37 rows=1 width=25) (actual time=0.066..0.067 rows=1 loops=1)
+        Buffers: shared hit=12
+        ->  Nested Loop Left Join  (cost=1.00..17.06 rows=1 width=33) (actual time=0.050..0.051 rows=1 loops=1)
+              Buffers: shared hit=10
+              ->  Nested Loop Left Join  (cost=0.71..16.75 rows=1 width=29) (actual time=0.044..0.045 rows=1 loops=1)
+                    Buffers: shared hit=7
+                    ->  Index Scan using idx_bookings_customer_status on bookings b  (cost=0.42..8.44 rows=1 width=25) (actual time=0.028..0.028 rows=1 loops=1)
+                          Index Cond: ((customer_id = 1021) AND ((status)::text = 'CONFIRMED'::text))
+                          Buffers: shared hit=4
+                    ->  Index Scan using flight_bookings_pkey on flight_bookings fb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.013..0.013 rows=1 loops=1)
+                          Index Cond: (booking_id = b.booking_id)
+                          Buffers: shared hit=3
+              ->  Index Scan using flights_pkey on flights f  (cost=0.29..0.31 rows=1 width=12) (actual time=0.005..0.005 rows=1 loops=1)
+                    Index Cond: (flight_id = fb.flight_id)
+                    Buffers: shared hit=3
+        ->  Index Scan using hotel_bookings_pkey on hotel_bookings hb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.008..0.008 rows=0 loops=1)
+              Index Cond: (booking_id = b.booking_id)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=673
+Planning Time: 3.591 ms
+Execution Time: 0.160 ms
+=== R05 run 3 ===
+Sort  (cost=25.38..25.39 rows=1 width=25) (actual time=0.175..0.180 rows=1 loops=1)
+  Sort Key: (COALESCE((f.departure_at)::date, hb.check_in))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=15
+  ->  Nested Loop Left Join  (cost=1.29..25.37 rows=1 width=25) (actual time=0.110..0.112 rows=1 loops=1)
+        Buffers: shared hit=12
+        ->  Nested Loop Left Join  (cost=1.00..17.06 rows=1 width=33) (actual time=0.084..0.086 rows=1 loops=1)
+              Buffers: shared hit=10
+              ->  Nested Loop Left Join  (cost=0.71..16.75 rows=1 width=29) (actual time=0.075..0.076 rows=1 loops=1)
+                    Buffers: shared hit=7
+                    ->  Index Scan using idx_bookings_customer_status on bookings b  (cost=0.42..8.44 rows=1 width=25) (actual time=0.047..0.047 rows=1 loops=1)
+                          Index Cond: ((customer_id = 1021) AND ((status)::text = 'CONFIRMED'::text))
+                          Buffers: shared hit=4
+                    ->  Index Scan using flight_bookings_pkey on flight_bookings fb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.025..0.025 rows=1 loops=1)
+                          Index Cond: (booking_id = b.booking_id)
+                          Buffers: shared hit=3
+              ->  Index Scan using flights_pkey on flights f  (cost=0.29..0.31 rows=1 width=12) (actual time=0.008..0.008 rows=1 loops=1)
+                    Index Cond: (flight_id = fb.flight_id)
+                    Buffers: shared hit=3
+        ->  Index Scan using hotel_bookings_pkey on hotel_bookings hb  (cost=0.29..8.31 rows=1 width=8) (actual time=0.014..0.014 rows=0 loops=1)
+              Index Cond: (booking_id = b.booking_id)
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=673
+Planning Time: 4.370 ms
+Execution Time: 0.288 ms

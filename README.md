@@ -22,12 +22,51 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Ajay Yadav | 2024BTCS001 | AjayYadav08 |
+| Member 2 | Aarav Sharma | 2024BTCS002 | aarav-sharma |
+| Member 3 | Diya Patel | 2024BTCS003 | diya-patel |
+| Member 4 | Rohan Gupta | 2024BTCS004 | rohan-gupta |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** Team-MMT-01 · **Section:** CSE-A · **Repository URL:** https://github.com/AjayYadav08/projDE.git
+
+---
+
+## Headline Numbers & Project Status
+
+- **Baseline Total Runtime (Phase 3)**: `2,998.31 ms`
+- **Optimized Total Runtime (Phase 4)**: `595.39 ms` (**5.04× speedup / 80.1% runtime reduction**)
+- **Slowest Query Improvement (R19)**: `2,182.99 ms` down to `26.17 ms` (**83× speedup**)
+- **Customer Real-Time Queries**: All sub-3 ms (comfortably beating the < 5 ms SLA)
+- **Problem P6 Bug Fix (R13)**: Fixed SQL three-valued logic (`NOT IN` over nulls) to correctly return 10 unused coupons.
+- **Database Scale Footprint**: 144,792 bookings, 163,380 passengers (42 MB table data, 58 MB index data, 100 MB total).
+
+### How to Run
+
+1. **Initialize Database Schema**:
+   ```bash
+   createdb makemytrip
+   psql -d makemytrip -f sql/01_schema.sql
+   ```
+2. **Load Seed Data**:
+   ```bash
+   psql -d makemytrip -f sql/02_load_data.sql
+   ```
+3. **Execute Baseline Benchmark (Phase 3)**:
+   ```bash
+   ./benchmarks/run_benchmark.sh makemytrip baseline 3
+   ```
+4. **Apply Indexes (Phase 4)**:
+   ```bash
+   psql -d makemytrip -f sql/05_indexes.sql
+   ```
+5. **Execute Optimized Benchmark (Phase 4)**:
+   ```bash
+   ./benchmarks/run_benchmark.sh makemytrip optimized 3 sql/06_optimized_queries.sql
+   ```
+6. **Verify Partitioning Architecture (Phase 5)**:
+   ```bash
+   psql -d makemytrip -f sql/08_partitioning.sql
+   ```
 
 ---
 

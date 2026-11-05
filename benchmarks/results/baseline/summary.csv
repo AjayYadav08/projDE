@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,16.823,16.708,16.488,17.274,Seq Scan on flight_bookings | Seq Scan on flights | Index Scan using bookings_pkey on bookings
+R02,READ,2.548,2.629,2.220,2.794,Seq Scan on flights
+R03,READ,1.250,1.239,0.677,1.835,Seq Scan on hotels
+R04,READ,7.387,7.977,6.162,8.021,Seq Scan on hotel_bookings | Seq Scan on room_types | Index Scan using bookings_pkey on bookings
+R05,READ,25.114,25.986,20.699,28.656,Seq Scan on bookings | Index Scan using flight_bookings_pkey on flight_bookings | Index Scan using flights_pkey on flights | Index Scan using hotel_bookings_pkey on hotel_bookings
+R06,READ,0.089,0.096,0.073,0.098,Index Scan using bookings_booking_ref_key on bookings
+R07,READ,9.959,10.266,9.044,10.568,Seq Scan on flight_bookings | Index Scan using bookings_pkey on bookings | Index Scan using passengers_pkey on passengers
+R08,READ,19.647,20.107,16.968,21.866,Seq Scan on flight_bookings | Seq Scan on flights
+R09,READ,41.140,40.629,37.691,45.101,Seq Scan on flight_bookings | Seq Scan on bookings | Seq Scan on flights
+R10,READ,1.694,1.728,1.615,1.738,Seq Scan on flights
+R11,READ,17.391,17.239,16.015,18.919,Seq Scan on bookings
+R12,READ,38.032,36.235,36.002,41.860,Seq Scan on bookings
+R13,READ,28.895,29.250,27.880,29.556,Seq Scan on coupons | Seq Scan on bookings
+R14,READ,70.803,71.386,68.851,72.171,Seq Scan on bookings | Seq Scan on flight_bookings | Seq Scan on flights | Seq Scan on airlines
+R15,READ,42.246,40.141,38.285,48.312,Seq Scan on bookings | Seq Scan on hotel_bookings | Seq Scan on hotels
+R16,READ,152.039,151.244,147.137,157.736,Seq Scan on bookings | Seq Scan on customers | Seq Scan on flight_bookings | Seq Scan on flights | Seq Scan on hotel_bookings
+R17,READ,49.664,50.427,45.904,52.660,Seq Scan on bookings
+R18,READ,8.029,7.801,7.798,8.487,Seq Scan on hotel_reviews | Seq Scan on hotels
+R19,READ,2182.986,2010.993,1520.191,3017.774,Seq Scan on flights | Seq Scan on flight_bookings | Index Only Scan using passengers_pkey on passengers
+R20,READ,15.494,14.818,14.649,17.015,Seq Scan on bookings
+R21,READ,41.326,40.943,38.462,44.573,Seq Scan on passengers | Seq Scan on flight_bookings | Seq Scan on flights
+R22,READ,112.850,80.904,79.663,177.984,Seq Scan on bookings
+R23,READ,14.678,14.854,14.047,15.133,Seq Scan on customers
+R24,READ,4.516,4.533,3.838,5.177,Seq Scan on hotel_reviews | Seq Scan on hotels
+R25,READ,52.051,49.292,48.654,58.208,Seq Scan on flight_bookings | Seq Scan on bookings | Seq Scan on flights
+W01,WRITE,2.301,2.730,1.367,2.805,(no scan)
+W02,WRITE,25.980,26.379,24.478,27.083,Index Scan using bookings_pkey on bookings
+W03,WRITE,0.407,0.411,0.372,0.437,Index Scan using bookings_booking_ref_key on bookings
+W04,WRITE,4.520,4.558,4.431,4.571,Seq Scan on flights
+W05,WRITE,8.450,8.586,7.907,8.856,Seq Scan on hotel_bookings | Index Scan using bookings_pkey on bookings

@@ -1,0 +1,39 @@
+=== R13 run 1 ===
+Nested Loop Anti Join  (cost=0.29..11.59 rows=10 width=20) (actual time=0.067..0.227 rows=10 loops=1)
+  Buffers: shared hit=62
+  ->  Seq Scan on coupons c  (cost=0.00..1.30 rows=30 width=20) (actual time=0.003..0.005 rows=30 loops=1)
+        Buffers: shared hit=1
+  ->  Index Only Scan using idx_bookings_coupon_code on bookings b  (cost=0.29..22.59 rows=879 width=10) (actual time=0.007..0.007 rows=1 loops=30)
+        Index Cond: (coupon_code = (c.coupon_code)::text)
+        Heap Fetches: 0
+        Buffers: shared hit=61
+Planning:
+  Buffers: shared hit=359
+Planning Time: 1.140 ms
+Execution Time: 0.259 ms
+=== R13 run 2 ===
+Nested Loop Anti Join  (cost=0.29..11.59 rows=10 width=20) (actual time=0.123..0.329 rows=10 loops=1)
+  Buffers: shared hit=62
+  ->  Seq Scan on coupons c  (cost=0.00..1.30 rows=30 width=20) (actual time=0.008..0.011 rows=30 loops=1)
+        Buffers: shared hit=1
+  ->  Index Only Scan using idx_bookings_coupon_code on bookings b  (cost=0.29..22.59 rows=879 width=10) (actual time=0.010..0.010 rows=1 loops=30)
+        Index Cond: (coupon_code = (c.coupon_code)::text)
+        Heap Fetches: 0
+        Buffers: shared hit=61
+Planning:
+  Buffers: shared hit=359
+Planning Time: 1.806 ms
+Execution Time: 0.381 ms
+=== R13 run 3 ===
+Nested Loop Anti Join  (cost=0.29..11.59 rows=10 width=20) (actual time=0.167..0.319 rows=10 loops=1)
+  Buffers: shared hit=62
+  ->  Seq Scan on coupons c  (cost=0.00..1.30 rows=30 width=20) (actual time=0.013..0.016 rows=30 loops=1)
+        Buffers: shared hit=1
+  ->  Index Only Scan using idx_bookings_coupon_code on bookings b  (cost=0.29..22.59 rows=879 width=10) (actual time=0.009..0.010 rows=1 loops=30)
+        Index Cond: (coupon_code = (c.coupon_code)::text)
+        Heap Fetches: 0
+        Buffers: shared hit=61
+Planning:
+  Buffers: shared hit=359
+Planning Time: 2.035 ms
+Execution Time: 0.371 ms

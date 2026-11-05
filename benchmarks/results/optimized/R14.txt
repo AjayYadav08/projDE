@@ -1,0 +1,156 @@
+=== R14 run 1 ===
+Sort  (cost=7908.89..7908.90 rows=5 width=50) (actual time=107.930..110.057 rows=5 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE ((b.status)::text = 'CANCELLED'::text)))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=3568
+  ->  Finalize GroupAggregate  (cost=7908.10..7908.83 rows=5 width=50) (actual time=107.861..109.993 rows=5 loops=1)
+        Group Key: a.airline_name
+        Buffers: shared hit=3565
+        ->  Gather Merge  (cost=7908.10..7908.68 rows=5 width=26) (actual time=107.846..109.975 rows=10 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3565
+              ->  Sort  (cost=6908.09..6908.11 rows=5 width=26) (actual time=101.749..101.751 rows=5 loops=2)
+                    Sort Key: a.airline_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=3565
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=6907.99..6908.04 rows=5 width=26) (actual time=101.678..101.681 rows=5 loops=2)
+                          Group Key: a.airline_name
+                          Batches: 1  Memory Usage: 24kB
+                          Buffers: shared hit=3557
+                          Worker 0:  Batches: 1  Memory Usage: 24kB
+                          ->  Hash Join  (cost=3023.92..6408.58 rows=49941 width=20) (actual time=37.904..93.804 rows=42450 loops=2)
+                                Hash Cond: ((f.airline_code)::text = (a.airline_code)::text)
+                                Buffers: shared hit=3557
+                                ->  Hash Join  (cost=3022.81..6165.25 rows=49941 width=13) (actual time=37.740..86.463 rows=42450 loops=2)
+                                      Hash Cond: (fb.flight_id = f.flight_id)
+                                      Buffers: shared hit=3552
+                                      ->  Hash Join  (cost=2550.23..5561.53 rows=49941 width=14) (actual time=33.351..71.072 rows=42450 loops=2)
+                                            Hash Cond: (b.booking_id = fb.booking_id)
+                                            Buffers: shared hit=3216
+                                            ->  Parallel Seq Scan on bookings b  (cost=0.00..2787.72 rows=85172 width=14) (actual time=0.012..9.286 rows=72396 loops=2)
+                                                  Buffers: shared hit=1936
+                                            ->  Hash  (cost=1488.99..1488.99 rows=84899 width=8) (actual time=33.156..33.156 rows=84899 loops=2)
+                                                  Buckets: 131072  Batches: 1  Memory Usage: 4341kB
+                                                  Buffers: shared hit=1280
+                                                  ->  Seq Scan on flight_bookings fb  (cost=0.00..1488.99 rows=84899 width=8) (actual time=0.086..12.587 rows=84899 loops=2)
+                                                        Buffers: shared hit=1280
+                                      ->  Hash  (cost=299.48..299.48 rows=13848 width=7) (actual time=4.325..4.325 rows=13848 loops=2)
+                                            Buckets: 16384  Batches: 1  Memory Usage: 656kB
+                                            Buffers: shared hit=322
+                                            ->  Seq Scan on flights f  (cost=0.00..299.48 rows=13848 width=7) (actual time=0.062..1.990 rows=13848 loops=2)
+                                                  Buffers: shared hit=322
+                                ->  Hash  (cost=1.05..1.05 rows=5 width=13) (actual time=0.140..0.141 rows=5 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on airlines a  (cost=0.00..1.05 rows=5 width=13) (actual time=0.129..0.129 rows=5 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=656
+Planning Time: 3.585 ms
+Execution Time: 110.298 ms
+=== R14 run 2 ===
+Sort  (cost=7908.89..7908.90 rows=5 width=50) (actual time=88.969..90.991 rows=5 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE ((b.status)::text = 'CANCELLED'::text)))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=3568
+  ->  Finalize GroupAggregate  (cost=7908.10..7908.83 rows=5 width=50) (actual time=88.945..90.973 rows=5 loops=1)
+        Group Key: a.airline_name
+        Buffers: shared hit=3565
+        ->  Gather Merge  (cost=7908.10..7908.68 rows=5 width=26) (actual time=88.930..90.955 rows=10 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3565
+              ->  Sort  (cost=6908.09..6908.11 rows=5 width=26) (actual time=85.141..85.145 rows=5 loops=2)
+                    Sort Key: a.airline_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=3565
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=6907.99..6908.04 rows=5 width=26) (actual time=85.089..85.094 rows=5 loops=2)
+                          Group Key: a.airline_name
+                          Batches: 1  Memory Usage: 24kB
+                          Buffers: shared hit=3557
+                          Worker 0:  Batches: 1  Memory Usage: 24kB
+                          ->  Hash Join  (cost=3023.92..6408.58 rows=49941 width=20) (actual time=25.025..77.596 rows=42450 loops=2)
+                                Hash Cond: ((f.airline_code)::text = (a.airline_code)::text)
+                                Buffers: shared hit=3557
+                                ->  Hash Join  (cost=3022.81..6165.25 rows=49941 width=13) (actual time=24.966..70.568 rows=42450 loops=2)
+                                      Hash Cond: (fb.flight_id = f.flight_id)
+                                      Buffers: shared hit=3552
+                                      ->  Hash Join  (cost=2550.23..5561.53 rows=49941 width=14) (actual time=21.139..55.907 rows=42450 loops=2)
+                                            Hash Cond: (b.booking_id = fb.booking_id)
+                                            Buffers: shared hit=3216
+                                            ->  Parallel Seq Scan on bookings b  (cost=0.00..2787.72 rows=85172 width=14) (actual time=0.008..7.278 rows=72396 loops=2)
+                                                  Buffers: shared hit=1936
+                                            ->  Hash  (cost=1488.99..1488.99 rows=84899 width=8) (actual time=20.874..20.874 rows=84899 loops=2)
+                                                  Buckets: 131072  Batches: 1  Memory Usage: 4341kB
+                                                  Buffers: shared hit=1280
+                                                  ->  Seq Scan on flight_bookings fb  (cost=0.00..1488.99 rows=84899 width=8) (actual time=0.239..8.624 rows=84899 loops=2)
+                                                        Buffers: shared hit=1280
+                                      ->  Hash  (cost=299.48..299.48 rows=13848 width=7) (actual time=3.790..3.791 rows=13848 loops=2)
+                                            Buckets: 16384  Batches: 1  Memory Usage: 656kB
+                                            Buffers: shared hit=322
+                                            ->  Seq Scan on flights f  (cost=0.00..299.48 rows=13848 width=7) (actual time=0.023..1.982 rows=13848 loops=2)
+                                                  Buffers: shared hit=322
+                                ->  Hash  (cost=1.05..1.05 rows=5 width=13) (actual time=0.045..0.045 rows=5 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on airlines a  (cost=0.00..1.05 rows=5 width=13) (actual time=0.033..0.034 rows=5 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=656
+Planning Time: 2.900 ms
+Execution Time: 91.130 ms
+=== R14 run 3 ===
+Sort  (cost=7908.89..7908.90 rows=5 width=50) (actual time=86.571..89.100 rows=5 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE ((b.status)::text = 'CANCELLED'::text)))::numeric) / (count(*))::numeric), 2)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=3568
+  ->  Finalize GroupAggregate  (cost=7908.10..7908.83 rows=5 width=50) (actual time=86.546..89.080 rows=5 loops=1)
+        Group Key: a.airline_name
+        Buffers: shared hit=3565
+        ->  Gather Merge  (cost=7908.10..7908.68 rows=5 width=26) (actual time=86.524..89.056 rows=10 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3565
+              ->  Sort  (cost=6908.09..6908.11 rows=5 width=26) (actual time=83.311..83.315 rows=5 loops=2)
+                    Sort Key: a.airline_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=3565
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=6907.99..6908.04 rows=5 width=26) (actual time=83.248..83.252 rows=5 loops=2)
+                          Group Key: a.airline_name
+                          Batches: 1  Memory Usage: 24kB
+                          Buffers: shared hit=3557
+                          Worker 0:  Batches: 1  Memory Usage: 24kB
+                          ->  Hash Join  (cost=3023.92..6408.58 rows=49941 width=20) (actual time=24.666..76.004 rows=42450 loops=2)
+                                Hash Cond: ((f.airline_code)::text = (a.airline_code)::text)
+                                Buffers: shared hit=3557
+                                ->  Hash Join  (cost=3022.81..6165.25 rows=49941 width=13) (actual time=24.537..68.746 rows=42450 loops=2)
+                                      Hash Cond: (fb.flight_id = f.flight_id)
+                                      Buffers: shared hit=3552
+                                      ->  Hash Join  (cost=2550.23..5561.53 rows=49941 width=14) (actual time=21.535..55.498 rows=42450 loops=2)
+                                            Hash Cond: (b.booking_id = fb.booking_id)
+                                            Buffers: shared hit=3216
+                                            ->  Parallel Seq Scan on bookings b  (cost=0.00..2787.72 rows=85172 width=14) (actual time=0.011..7.017 rows=72396 loops=2)
+                                                  Buffers: shared hit=1936
+                                            ->  Hash  (cost=1488.99..1488.99 rows=84899 width=8) (actual time=21.411..21.412 rows=84899 loops=2)
+                                                  Buckets: 131072  Batches: 1  Memory Usage: 4341kB
+                                                  Buffers: shared hit=1280
+                                                  ->  Seq Scan on flight_bookings fb  (cost=0.00..1488.99 rows=84899 width=8) (actual time=0.076..9.124 rows=84899 loops=2)
+                                                        Buffers: shared hit=1280
+                                      ->  Hash  (cost=299.48..299.48 rows=13848 width=7) (actual time=2.929..2.929 rows=13848 loops=2)
+                                            Buckets: 16384  Batches: 1  Memory Usage: 656kB
+                                            Buffers: shared hit=322
+                                            ->  Seq Scan on flights f  (cost=0.00..299.48 rows=13848 width=7) (actual time=0.068..1.636 rows=13848 loops=2)
+                                                  Buffers: shared hit=322
+                                ->  Hash  (cost=1.05..1.05 rows=5 width=13) (actual time=0.116..0.116 rows=5 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on airlines a  (cost=0.00..1.05 rows=5 width=13) (actual time=0.083..0.084 rows=5 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=656
+Planning Time: 2.807 ms
+Execution Time: 89.260 ms

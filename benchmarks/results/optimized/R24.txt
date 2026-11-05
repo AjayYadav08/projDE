@@ -1,0 +1,78 @@
+=== R24 run 1 ===
+Limit  (cost=399.30..399.35 rows=20 width=64) (actual time=1.632..1.640 rows=20 loops=1)
+  Buffers: shared hit=913
+  ->  Sort  (cost=399.30..399.67 rows=150 width=64) (actual time=1.631..1.633 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=913
+        ->  GroupAggregate  (cost=0.57..395.31 rows=150 width=64) (actual time=0.058..1.525 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Rows Removed by Filter: 200
+              Buffers: shared hit=907
+              ->  Nested Loop  (cost=0.57..370.28 rows=2387 width=28) (actual time=0.035..1.100 rows=2385 loops=1)
+                    Buffers: shared hit=907
+                    ->  Index Only Scan using idx_hotels_city on hotels h  (cost=0.28..24.16 rows=450 width=24) (actual time=0.021..0.083 rows=450 loops=1)
+                          Index Cond: (city_name = 'Goa'::text)
+                          Heap Fetches: 0
+                          Buffers: shared hit=6
+                    ->  Index Only Scan using idx_hotel_reviews_hotel_rating on hotel_reviews r  (cost=0.29..0.72 rows=5 width=8) (actual time=0.001..0.002 rows=5 loops=450)
+                          Index Cond: (hotel_id = h.hotel_id)
+                          Heap Fetches: 0
+                          Buffers: shared hit=901
+Planning:
+  Buffers: shared hit=263
+Planning Time: 3.430 ms
+Execution Time: 1.725 ms
+=== R24 run 2 ===
+Limit  (cost=399.30..399.35 rows=20 width=64) (actual time=3.045..3.061 rows=20 loops=1)
+  Buffers: shared hit=913
+  ->  Sort  (cost=399.30..399.67 rows=150 width=64) (actual time=3.043..3.046 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=913
+        ->  GroupAggregate  (cost=0.57..395.31 rows=150 width=64) (actual time=0.066..2.877 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Rows Removed by Filter: 200
+              Buffers: shared hit=907
+              ->  Nested Loop  (cost=0.57..370.28 rows=2387 width=28) (actual time=0.036..2.075 rows=2385 loops=1)
+                    Buffers: shared hit=907
+                    ->  Index Only Scan using idx_hotels_city on hotels h  (cost=0.28..24.16 rows=450 width=24) (actual time=0.019..0.100 rows=450 loops=1)
+                          Index Cond: (city_name = 'Goa'::text)
+                          Heap Fetches: 0
+                          Buffers: shared hit=6
+                    ->  Index Only Scan using idx_hotel_reviews_hotel_rating on hotel_reviews r  (cost=0.29..0.72 rows=5 width=8) (actual time=0.003..0.004 rows=5 loops=450)
+                          Index Cond: (hotel_id = h.hotel_id)
+                          Heap Fetches: 0
+                          Buffers: shared hit=901
+Planning:
+  Buffers: shared hit=263
+Planning Time: 2.154 ms
+Execution Time: 3.140 ms
+=== R24 run 3 ===
+Limit  (cost=399.30..399.35 rows=20 width=64) (actual time=1.660..1.672 rows=20 loops=1)
+  Buffers: shared hit=913
+  ->  Sort  (cost=399.30..399.67 rows=150 width=64) (actual time=1.658..1.661 rows=20 loops=1)
+        Sort Key: (round(avg(r.rating), 2)) DESC, (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=913
+        ->  GroupAggregate  (cost=0.57..395.31 rows=150 width=64) (actual time=0.067..1.548 rows=248 loops=1)
+              Group Key: h.hotel_id
+              Filter: (count(*) >= 5)
+              Rows Removed by Filter: 200
+              Buffers: shared hit=907
+              ->  Nested Loop  (cost=0.57..370.28 rows=2387 width=28) (actual time=0.037..1.112 rows=2385 loops=1)
+                    Buffers: shared hit=907
+                    ->  Index Only Scan using idx_hotels_city on hotels h  (cost=0.28..24.16 rows=450 width=24) (actual time=0.022..0.101 rows=450 loops=1)
+                          Index Cond: (city_name = 'Goa'::text)
+                          Heap Fetches: 0
+                          Buffers: shared hit=6
+                    ->  Index Only Scan using idx_hotel_reviews_hotel_rating on hotel_reviews r  (cost=0.29..0.72 rows=5 width=8) (actual time=0.001..0.002 rows=5 loops=450)
+                          Index Cond: (hotel_id = h.hotel_id)
+                          Heap Fetches: 0
+                          Buffers: shared hit=901
+Planning:
+  Buffers: shared hit=263
+Planning Time: 3.717 ms
+Execution Time: 1.762 ms
