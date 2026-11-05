@@ -126,6 +126,11 @@ CREATE TABLE fb_default PARTITION OF flight_bookings DEFAULT;
 
 CREATE INDEX idx_fb_part_flight ON flight_bookings (flight_id);
 
+-- Foreign key connecting co-partitioned child to partitioned master:
+ALTER TABLE flight_bookings
+    ADD CONSTRAINT fk_fb_part_bookings
+    FOREIGN KEY (booking_id, booked_at) REFERENCES bookings (booking_id, booked_at) ON DELETE CASCADE;
+
 -- ---------------------------------------------------------------------
 -- 5. Data Migration from Production Schema
 -- ---------------------------------------------------------------------
@@ -173,27 +178,62 @@ GROUP BY 1;
 
 -- Demonstration 6D: Keyset Pagination on Partitioned Table
 -- Keyset seek directly through partition boundary without reading old tuples.
+-- NOTE: Strict '<' is mathematically required for descending keyset pagination.
+-- Using '<=' duplicates the last row of the prior page as the first row of the current page.
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT booking_id, booking_ref, booking_type, status, total_amount, booked_at
 FROM bookings
-WHERE (booked_at, booking_id) <= ('2025-06-18 22:12:10+05:30', 46409)
+WHERE (booked_at, booking_id) < ('2025-06-18 22:12:10+05:30', 46409)
 ORDER BY booked_at DESC, booking_id DESC
 LIMIT 25;
 
 -- ---------------------------------------------------------------------
 -- 7. PARTITION MANAGEMENT & ARCHIVAL (DETACH / ATTACH)
--- Demonstrates zero-downtime cold partition archival via co-partitioning
+-- Demonstrates cold partition archival via co-partitioning.
+--
+-- NOTE ON LOCKS & CONCURRENCY:
+-- - Ordinary DETACH PARTITION acquires an ACCESS EXCLUSIVE lock on the
+--   partitioned table and the partition, blocking concurrent reads and writes
+--   for the duration of the DDL (typically milliseconds for catalog-only updates).
+-- - PostgreSQL 14+ offers DETACH PARTITION CONCURRENTLY (SHARE UPDATE EXCLUSIVE lock),
+--   BUT PostgreSQL explicitly disallows CONCURRENTLY when a DEFAULT partition exists:
+--   "ERROR: cannot detach partitions concurrently when a default partition exists".
+-- - Because mmt_partitioned uses a DEFAULT partition (to safely catch unrouted future dates),
+--   detachment must use ordinary DETACH PARTITION during scheduled maintenance windows.
+--
+-- FOREIGN KEY ARCHIVAL LIFECYCLE:
+-- 1. Detach child partition fb_2025_q1 first.
+-- 2. Drop the inherited constraint fk_fb_part_bookings on the standalone fb_2025_q1
+--    (otherwise PostgreSQL blocks detaching parent bookings_2025_q1 because the standalone
+--     child still references the parent table).
+-- 3. Detach parent partition bookings_2025_q1.
+-- 4. Establish a direct local FK between the two standalone archived tables.
 -- ---------------------------------------------------------------------
--- Step 7A: Detach old quarter from child table and master table
+
+-- Step 7A: Detach child partition fb_2025_q1
 ALTER TABLE flight_bookings DETACH PARTITION fb_2025_q1;
+
+-- Step 7B: Remove standalone FK referencing master partitioned table
+ALTER TABLE fb_2025_q1 DROP CONSTRAINT fk_fb_part_bookings;
+
+-- Step 7C: Detach master partition bookings_2025_q1
 ALTER TABLE bookings DETACH PARTITION bookings_2025_q1;
 
--- Step 7B: Verify query on bookings now completely excludes 2025_q1:
+-- Step 7D: Add direct FK between standalone archived tables for archival integrity
+ALTER TABLE fb_2025_q1
+    ADD CONSTRAINT fk_fb_archived_bookings
+    FOREIGN KEY (booking_id, booked_at) REFERENCES bookings_2025_q1 (booking_id, booked_at) ON DELETE CASCADE;
+
+-- Step 7E: Verify query on bookings now completely excludes 2025_q1:
 EXPLAIN (ANALYZE, BUFFERS)
 SELECT count(*) FROM bookings WHERE booked_at >= '2025-01-01' AND booked_at < '2025-04-01';
 
--- Step 7C: Re-attach seamlessly:
+-- Step 7F: Re-attach seamlessly:
+-- Drop archival FK, attach parent partition, attach child partition (FK auto-restores from parent)
+ALTER TABLE fb_2025_q1 DROP CONSTRAINT fk_fb_archived_bookings;
+
 ALTER TABLE bookings ATTACH PARTITION bookings_2025_q1
     FOR VALUES FROM ('2025-01-01 00:00:00+05:30') TO ('2025-04-01 00:00:00+05:30');
+
 ALTER TABLE flight_bookings ATTACH PARTITION fb_2025_q1
     FOR VALUES FROM ('2025-01-01 00:00:00+05:30') TO ('2025-04-01 00:00:00+05:30');

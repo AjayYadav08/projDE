@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | Ajay Yadav | 2024BTCS001 | AjayYadav08 |
-| Member 2 | Aarav Sharma | 2024BTCS002 | aarav-sharma |
-| Member 3 | Diya Patel | 2024BTCS003 | diya-patel |
-| Member 4 | Rohan Gupta | 2024BTCS004 | rohan-gupta |
+| Group Lead | Ajay Yadav | [PENDING_ENROLLMENT_NO] | AjayYadav08 |
+| Member 2 | [PENDING_MEMBER_2_NAME] | [PENDING_ENROLLMENT_NO] | [PENDING_GITHUB] |
+| Member 3 | [PENDING_MEMBER_3_NAME] | [PENDING_ENROLLMENT_NO] | [PENDING_GITHUB] |
+| Member 4 | [PENDING_MEMBER_4_NAME] | [PENDING_ENROLLMENT_NO] | [PENDING_GITHUB] |
 
-**Team No.:** Team-MMT-01 · **Section:** CSE-A · **Repository URL:** https://github.com/AjayYadav08/projDE.git
+**Team No.:** [PENDING_TEAM_NO] · **Section:** [PENDING_SECTION] · **Repository URL:** https://github.com/AjayYadav08/projDE.git
 
 ---
 

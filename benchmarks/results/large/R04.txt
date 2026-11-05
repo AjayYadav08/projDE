@@ -1,0 +1,90 @@
+=== R04 run 1 ===
+Sort  (cost=74.22..74.22 rows=3 width=31) (actual time=8.139..8.143 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=143 read=120
+  ->  GroupAggregate  (cost=74.05..74.19 rows=3 width=31) (actual time=8.077..8.099 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=140 read=120
+        ->  Sort  (cost=74.05..74.08 rows=10 width=37) (actual time=8.061..8.065 rows=61 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 28kB
+              Buffers: shared hit=140 read=120
+              ->  Nested Loop Left Join  (cost=1.14..73.89 rows=10 width=37) (actual time=0.851..8.012 rows=61 loops=1)
+                    Buffers: shared hit=137 read=120
+                    ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.339..0.344 rows=3 loops=1)
+                          Index Cond: (hotel_id = 208)
+                          Buffers: shared hit=2 read=2
+                    ->  Nested Loop Left Join  (cost=0.86..20.65 rows=3 width=18) (actual time=0.302..2.550 rows=20 loops=3)
+                          Buffers: shared hit=135 read=118
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.43..7.49 rows=3 width=12) (actual time=0.185..0.204 rows=20 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 0
+                                Buffers: shared hit=8 read=5
+                          ->  Index Scan using bookings_pkey on bookings b  (cost=0.43..4.39 rows=1 width=14) (actual time=0.116..0.116 rows=1 loops=60)
+                                Index Cond: (booking_id = hb.booking_id)
+                                Buffers: shared hit=127 read=113
+Planning:
+  Buffers: shared hit=475 read=19
+Planning Time: 5.693 ms
+Execution Time: 8.224 ms
+=== R04 run 2 ===
+Sort  (cost=74.22..74.22 rows=3 width=31) (actual time=0.757..0.760 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=263
+  ->  GroupAggregate  (cost=74.05..74.19 rows=3 width=31) (actual time=0.704..0.721 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=260
+        ->  Sort  (cost=74.05..74.08 rows=10 width=37) (actual time=0.696..0.700 rows=61 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 28kB
+              Buffers: shared hit=260
+              ->  Nested Loop Left Join  (cost=1.14..73.89 rows=10 width=37) (actual time=0.059..0.672 rows=61 loops=1)
+                    Buffers: shared hit=257
+                    ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.024..0.028 rows=3 loops=1)
+                          Index Cond: (hotel_id = 208)
+                          Buffers: shared hit=4
+                    ->  Nested Loop Left Join  (cost=0.86..20.65 rows=3 width=18) (actual time=0.029..0.212 rows=20 loops=3)
+                          Buffers: shared hit=253
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.43..7.49 rows=3 width=12) (actual time=0.018..0.020 rows=20 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 0
+                                Buffers: shared hit=13
+                          ->  Index Scan using bookings_pkey on bookings b  (cost=0.43..4.39 rows=1 width=14) (actual time=0.009..0.009 rows=1 loops=60)
+                                Index Cond: (booking_id = hb.booking_id)
+                                Buffers: shared hit=240
+Planning:
+  Buffers: shared hit=494
+Planning Time: 2.503 ms
+Execution Time: 0.829 ms
+=== R04 run 3 ===
+Sort  (cost=74.22..74.22 rows=3 width=31) (actual time=0.725..0.728 rows=3 loops=1)
+  Sort Key: rt.price_per_night
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=263
+  ->  GroupAggregate  (cost=74.05..74.19 rows=3 width=31) (actual time=0.664..0.683 rows=3 loops=1)
+        Group Key: rt.room_type_id
+        Buffers: shared hit=260
+        ->  Sort  (cost=74.05..74.08 rows=10 width=37) (actual time=0.648..0.651 rows=61 loops=1)
+              Sort Key: rt.room_type_id
+              Sort Method: quicksort  Memory: 28kB
+              Buffers: shared hit=260
+              ->  Nested Loop Left Join  (cost=1.14..73.89 rows=10 width=37) (actual time=0.044..0.618 rows=61 loops=1)
+                    Buffers: shared hit=257
+                    ->  Index Scan using idx_room_types_hotel on room_types rt  (cost=0.29..11.84 rows=3 width=23) (actual time=0.013..0.017 rows=3 loops=1)
+                          Index Cond: (hotel_id = 208)
+                          Buffers: shared hit=4
+                    ->  Nested Loop Left Join  (cost=0.86..20.65 rows=3 width=18) (actual time=0.025..0.198 rows=20 loops=3)
+                          Buffers: shared hit=253
+                          ->  Index Only Scan using idx_hotel_bookings_rt_dates on hotel_bookings hb  (cost=0.43..7.49 rows=3 width=12) (actual time=0.017..0.019 rows=20 loops=3)
+                                Index Cond: ((room_type_id = rt.room_type_id) AND (check_in < '2026-07-12'::date) AND (check_out > '2026-07-10'::date))
+                                Heap Fetches: 0
+                                Buffers: shared hit=13
+                          ->  Index Scan using bookings_pkey on bookings b  (cost=0.43..4.39 rows=1 width=14) (actual time=0.008..0.008 rows=1 loops=60)
+                                Index Cond: (booking_id = hb.booking_id)
+                                Buffers: shared hit=240
+Planning:
+  Buffers: shared hit=494
+Planning Time: 3.116 ms
+Execution Time: 0.801 ms

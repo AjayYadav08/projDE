@@ -1,28 +1,27 @@
 {
-  "team_number": "Team-MMT-01",
+  "team_number": "<PENDING_FILL_IN_TEAM_NO>",
   "group_lead": {
     "name": "Ajay Yadav",
-    "enrollment_no": "2024BTCS001",
+    "enrollment_no": "<PENDING_FILL_IN_ENROLLMENT_NO>",
     "github": "AjayYadav08"
   },
   "members": [
     {
-      "name": "Aarav Sharma",
-      "enrollment_no": "2024BTCS002",
-      "github": "aarav-sharma"
+      "name": "<PENDING_FILL_IN_MEMBER_2_NAME>",
+      "enrollment_no": "<PENDING_FILL_IN_MEMBER_2_ENROLLMENT_NO>",
+      "github": "<PENDING_FILL_IN_MEMBER_2_GITHUB>"
     },
     {
-      "name": "Diya Patel",
-      "enrollment_no": "2024BTCS003",
-      "github": "diya-patel"
+      "name": "<PENDING_FILL_IN_MEMBER_3_NAME>",
+      "enrollment_no": "<PENDING_FILL_IN_MEMBER_3_ENROLLMENT_NO>",
+      "github": "<PENDING_FILL_IN_MEMBER_3_GITHUB>"
     },
     {
-      "name": "Rohan Gupta",
-      "enrollment_no": "2024BTCS004",
-      "github": "rohan-gupta"
+      "name": "<PENDING_FILL_IN_MEMBER_4_NAME>",
+      "enrollment_no": "<PENDING_FILL_IN_MEMBER_4_ENROLLMENT_NO>",
+      "github": "<PENDING_FILL_IN_MEMBER_4_GITHUB>"
     }
   ],
   "postgres_version": "PostgreSQL 16.15",
   "laptop_used_for_benchmarks": "Apple M-Series Mac (macOS)"
 }
-

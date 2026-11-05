@@ -3,6 +3,18 @@
 ## 1. Executive Summary
 This document outlines the relational architecture, data dictionary, normalization analysis (3NF/BCNF), integrity verification, and data findings for the MakeMyTrip Travel Booking Database implemented on PostgreSQL 16 under the `mmt` schema.
 
+### Relational Constraint Summary (`sql/01_schema.sql`)
+The database enforces strict referential and domain integrity purely at the relational engine level. A complete query of PostgreSQL's system catalog (`pg_constraint` and `pg_attribute`) verifies:
+
+| Constraint Type | Count | Declaration Scope & Enforcement Details |
+|:---|:---:|:---|
+| **PRIMARY KEY** | **12** | 11 column-level surrogate/natural keys + 1 composite table-level PK on `passengers (booking_id, seq_no)`. |
+| **FOREIGN KEY** | **14** | Complete referential integrity graph with explicit `ON DELETE RESTRICT`, `CASCADE`, and `SET NULL` rules. |
+| **UNIQUE** | **5** | Natural candidate keys on `airlines.airline_name`, `customers.email`, `customers.phone`, `bookings.booking_ref`, and `hotel_reviews.booking_id`. |
+| **Domain CHECK** | **33** | Named table-level domain rules enforcing date coherence, positive fares, status enums, cancellation symmetry, and coupon subsidies. (Syllabus requires $\ge 12$). |
+| **Total in `pg_constraint`** | **64** | **All 64 constraints actively verified on PostgreSQL 16 with 0 load errors.** |
+| **Column `NOT NULL`** | **74** | Enforced across all required attributes in `pg_attribute.attnotnull`. |
+
 ---
 
 ## 2. Entity-Relationship (ER) Diagram
