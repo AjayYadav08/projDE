@@ -126,11 +126,12 @@ CREATE INDEX IF NOT EXISTS idx_bookings_completed_2026
 
 -- ---------------------------------------------------------------------
 -- 13. General Booking Timeline & Pagination (Serves R09, R20, R22, R25)
--- B-tree on booked_at DESC with covering payload. Provides fast ordered scans
--- for date range queries and pagination without in-memory sorting.
+-- Composite B-tree on (booked_at DESC, booking_id DESC) with covering payload.
+-- Provides fast ordered scans for date range queries and enables instant
+-- keyset seek pagination without in-memory sorting or offset scans.
 -- ---------------------------------------------------------------------
 CREATE INDEX IF NOT EXISTS idx_bookings_booked_at_desc
-    ON bookings (booked_at DESC)
+    ON bookings (booked_at DESC, booking_id DESC)
     INCLUDE (booking_ref, booking_type, status, total_amount);
 
 -- ---------------------------------------------------------------------
